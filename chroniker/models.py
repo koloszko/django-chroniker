@@ -398,7 +398,7 @@ class JobManager(models.Manager):
         q = self.stale()
         total = q.count()
         print('{} total stale jobs.'.format(total))
-        for job in q.iterator():
+        for job in q.all():
             print('Checking stale job {}: {}'.format(job.id, job))
 
             kill_job(job)

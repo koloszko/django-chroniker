@@ -321,8 +321,6 @@ class Command(BaseCommand):
         if verbose:
             logging.basicConfig(level=logging.DEBUG)
 
-        kill_stalled_processes(dryrun=False)
-
         # Find specific job ids to run, if any.
         jobs = [int(_.strip()) for _ in options.get('jobs', '').strip().split(',') if _.strip().isdigit()]
 
