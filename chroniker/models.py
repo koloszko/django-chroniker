@@ -369,7 +369,7 @@ class JobManager(models.Manager):
         def kill_job(job):
             # If we know the PID and it's running locally, and the process
             # appears inactive, then attempt to forcibly kill the job.
-            if job.current_pid and job.current_hostname and job.current_hostname == socket.gethostname() and os.getpid() != job.current_pid:
+            if job.current_pid and job.current_hostname and job.current_hostname == socket.gethostname() and str(os.getpid()) != job.current_pid:
                 if utils.pid_exists(job.current_pid):
                     print('Killing process {}...'.format(job.current_pid))
                     utils.kill_process(job.current_pid)
