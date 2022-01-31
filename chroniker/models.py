@@ -371,7 +371,7 @@ class JobManager(models.Manager):
             # appears inactive, then attempt to forcibly kill the job.
             if job.current_pid and job.current_hostname and job.current_hostname == socket.gethostname() and str(os.getpid()) != job.current_pid:
                 if utils.pid_exists(job.current_pid):
-                    print('Killing process {}...'.format(job.current_pid))
+                    print(f'Killing process {job.current_pid} ...')
                     utils.kill_process(job.current_pid)
                     #TODO:record log entry
                 else:
@@ -379,6 +379,13 @@ class JobManager(models.Manager):
             else:
                 print('Process with PID {} is not elligible for killing.'.format(job.current_pid))
 
+            job.is_running = False
+            job.last_run_successful = False
+            job.save()
+
+        @transaction.atomic
+        def job_is_not_running(job):
+            print('Process with PID {} is marked as not running.'.format(job.current_pid))
             job.is_running = False
             job.last_run_successful = False
             job.save()
@@ -401,7 +408,8 @@ class JobManager(models.Manager):
         for job in q.all():
             print('Checking stale job {}: {}'.format(job.id, job))
 
-            kill_job(job)
+            job_is_not_running(job)
+            # kill_job(job)
             #transaction.commit()
 
             create_log(job)
