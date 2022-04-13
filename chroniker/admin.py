@@ -1,6 +1,6 @@
 from django import forms
 from django.conf import settings
-from django.conf.urls import re_path
+from django.urls import re_path
 from django.contrib import admin
 from django.core.management import get_commands
 from django.urls import reverse, NoReverseMatch

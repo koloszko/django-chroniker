@@ -2,7 +2,7 @@ try:
     # Removed in Django 1.6
     from django.conf.urls.defaults import url, include
 except ImportError:
-    from django.conf.urls import re_path, include
+    from django.urls import re_path, include
 
 try:
     # Relocated in Django 1.6
