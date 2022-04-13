@@ -684,7 +684,7 @@ class MonitorAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(r'^(.+)/run/$', self.admin_site.admin_view(self.run_job_view), name="chroniker_job_run"),
+            re_path(r'^(.+)/run/$', self.admin_site.admin_view(self.run_job_view), name="chroniker_job_run"),
         ]
         return my_urls + urls
 
