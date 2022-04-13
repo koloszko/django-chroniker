@@ -2,7 +2,7 @@ try:
     # Removed in Django 1.6
     from django.conf.urls.defaults import url, include
 except ImportError:
-    from django.conf.urls import url, include
+    from django.conf.urls import re_path, include
 
 try:
     # Relocated in Django 1.6
@@ -21,12 +21,12 @@ admin.autodiscover()
 
 try:
     _patterns = [
-        url(r'^admin/', include(admin.site.urls)),
+        re_path(r'^admin/', include(admin.site.urls)),
     ]
 except ImproperlyConfigured:
     # Django >= 2.1.7.
     _patterns = [
-        url(r'^admin/', admin.site.urls),
+        re_path(r'^admin/', admin.site.urls),
     ]
 
 if patterns is None:
