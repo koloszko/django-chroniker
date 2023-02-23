@@ -1249,7 +1249,7 @@ class Log(models.Model):
 
         subscribers = []
         for user in self.job.subscribers.all():
-            subscribers.append('"%s" <%s>' % (user.get_full_name(), user.email))
+            subscribers.append(user.email)
 
         is_error = bool((self.stderr or '').strip())
         if is_error:
